@@ -21,6 +21,6 @@ public class Main {
                     updateIF.updateTime(currentTimeMs);
                 }
             }
-        }, 0, 1000);
+        }, 0, 10000);
     }
 }
