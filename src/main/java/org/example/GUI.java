@@ -5,11 +5,12 @@ import org.example.services.MasterClock;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class GUI implements UpdateIF {
-    private static final MasterClock masterClock = MasterClock.getInstance();
     JFrame frame = new JFrame("Current Time");
     JLabel time = new JLabel("CurrentTime");
 
@@ -19,14 +20,40 @@ public class GUI implements UpdateIF {
         JPanel masterPanel = new JPanel(new GridLayout(3,1));
         JPanel topTimeButtons = new JPanel(new GridLayout(1,2));
         JPanel bottomTimeButtons = new JPanel(new GridLayout(1,2));
+        JPanel timeContainer = new JPanel();
 
         JButton hourUp = new JButton("Hour Up");
         JButton hourDown = new JButton("Hour Down");
         JButton minuteUp = new JButton("Minute Up");
         JButton minuteDown = new JButton("Minute Down");
 
+        hourUp.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                MasterClock.getInstance().incHour();
+            }
+        });
+
+        hourDown.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                MasterClock.getInstance().decHour();
+            }
+        });
+
+        minuteUp.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                MasterClock.getInstance().incMinute();
+            }
+        });
+
+        minuteDown.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                MasterClock.getInstance().decMinute();
+            }
+        });
+
+
         masterPanel.add(topTimeButtons);
-        masterPanel.add(time);
+        masterPanel.add(timeContainer);
         masterPanel.add(bottomTimeButtons);
 
         topTimeButtons.add(hourUp);
@@ -34,6 +61,8 @@ public class GUI implements UpdateIF {
 
         bottomTimeButtons.add(hourDown);
         bottomTimeButtons.add(minuteDown);
+
+        timeContainer.add(time);
 
         frame.add(masterPanel);
 
